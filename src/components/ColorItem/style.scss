@@ -1,0 +1,29 @@
+.color-item {
+  width: 20%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+
+  &__box {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+  }
+  &--active &__box{
+    border-color: #fff;
+  }
+  &__color{
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  &__input{
+    border: none;
+    height: 0;
+    padding: 0;
+  }
+}

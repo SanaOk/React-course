@@ -1,0 +1,23 @@
+.item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item__checkbox{
+  width: 20px;
+  height: 20px;
+}
+
+.item__text{
+  margin-right: 10px;
+}
+
+.item__checkbox:checked + .item__text{
+  text-decoration: line-through;
+}
+
+.item__delete{
+  padding: 5px 10px;
+}

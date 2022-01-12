@@ -1,27 +1,63 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import Button from './components/Button/index';
-import Input from './components/Input/index';
+import ToDoList from "./components/ToDoList";
+import Input from "./components/UI/Input";
+import Button from "./components/UI/Button";
+import InputSearch from "./components/UI/InputSearch";
+import SortButtons from "./components/UI/SortButtons";
 
-export default function App() {
-    const [minNumber, setMinNumber] = useState(0);
-    const [maxNumber, setMaxNumber] = useState(0);
-    const [number, setNumber] = useState(0);
+function App() {
+    const [items, setItems] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [inputSearchData, setInputSearchData] = useState('');
+    let filteredItems = items;
 
-  return (
-    <div className="App">
-      <div className="result">Random number: {number}</div>
-      <div className='inputs'>
-          <div>
-              <div>Min:</div>
-              <Input name='min-number' className='min-number' value={minNumber} onChange={e => setMinNumber(Number(e.target.value))}/>
-          </div>
-          <div>
-              <div>Max:</div>
-              <Input name='max-number' className='max-number' value={maxNumber} onChange={e => setMaxNumber(Number(e.target.value))}/>
-          </div>
-      </div>
-      <Button onClick={()=>setNumber( Math.round(minNumber + (Math.random() * (maxNumber - minNumber))))}/>
-    </div>
-  );
+    useEffect(() => {
+        function getItems() {
+            const storageItems = localStorage.getItem('data');
+            if (storageItems) {
+                setItems(JSON.parse(storageItems));
+            }
+        }
+
+        if (!items) {
+            getItems();
+        } else {
+            const data = JSON.stringify(items);
+            localStorage.setItem('data', data);
+        }
+    })
+
+    if (inputSearchData) {
+        filteredItems = items.filter((el) => {
+            return el.inputData.includes(inputSearchData);
+        })
+    }
+
+    return (
+        <div className="App">
+            <div className="App__name">ToDo</div>
+            <form action=""
+                  onSubmit={
+                      (e) => {
+                          e.preventDefault();
+                          if (inputData) {
+                              setItems([...items, {inputData, isDone: false}]);
+                              setInputData('');
+                          }
+                      }}
+                  className='form'>
+                <Input value={inputData} setInputData={setInputData}/>
+                <Button/>
+            </form>
+            <SortButtons items={items} setItems={setItems}/>
+            <InputSearch setInputSearchData={setInputSearchData}/>
+            <ToDoList
+                items={items}
+                filteredItems={filteredItems}
+                setItems={setItems}/>
+        </div>
+    );
 }
+
+export default App;

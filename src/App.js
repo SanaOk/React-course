@@ -5,6 +5,7 @@ import Input from "./components/UI/Input";
 import Button from "./components/UI/Button";
 import InputSearch from "./components/UI/InputSearch";
 import SortButtons from "./components/UI/SortButtons";
+import {DataContext} from "./context";
 
 function App() {
     const [items, setItems] = useState('');
@@ -35,28 +36,30 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <div className="App__name">ToDo</div>
-            <form action=""
-                  onSubmit={
-                      (e) => {
-                          e.preventDefault();
-                          if (inputData) {
-                              setItems([...items, {inputData, isDone: false}]);
-                              setInputData('');
-                          }
-                      }}
-                  className='form'>
-                <Input value={inputData} setInputData={setInputData}/>
-                <Button/>
-            </form>
-            <SortButtons items={items} setItems={setItems}/>
-            <InputSearch setInputSearchData={setInputSearchData}/>
-            <ToDoList
-                items={items}
-                filteredItems={filteredItems}
-                setItems={setItems}/>
-        </div>
+        <DataContext.Provider value={{items, setItems}}>
+            <div className="App">
+                <div className="App__name">ToDo</div>
+                <form action=""
+                      onSubmit={
+                          (e) => {
+                              e.preventDefault();
+                              if (inputData) {
+                                  setItems([...items, {inputData, isDone: false}]);
+                                  setInputData('');
+                              }
+                          }}
+                      className='form'>
+                    <Input value={inputData} setInputData={setInputData}/>
+                    <Button/>
+                </form>
+                <SortButtons/>
+                <InputSearch setInputSearchData={setInputSearchData}/>
+                <ToDoList
+                    items={items}
+                    filteredItems={filteredItems}
+                />
+            </div>
+        </DataContext.Provider>
     );
 }
 

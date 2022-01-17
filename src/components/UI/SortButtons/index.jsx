@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import './styles.css'
+import {DataContext} from "../../../context";
 
-const SortButtons = ({items, setItems}) => {
+const SortButtons = () => {
+    const {items, setItems} = useContext(DataContext);
     let temp = [...items];
     return (
         <div className='sort'>

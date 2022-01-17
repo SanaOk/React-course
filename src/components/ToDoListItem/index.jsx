@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import './styles.css'
-
-const ToDoListItem = ({items, inputData, setItems, id, isDone}) => {
+import {DataContext} from "../../context";
+const ToDoListItem = ({inputData, id, isDone}) => {
+    const {items, setItems} = useContext(DataContext);
     return (
         <li id={id} className='list__item item'>
             <input

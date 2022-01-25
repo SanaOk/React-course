@@ -1,0 +1,12 @@
+.sort__buttons{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.sort__button{
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
